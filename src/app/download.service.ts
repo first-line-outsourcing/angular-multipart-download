@@ -21,7 +21,7 @@ export class DownloadService {
    */
   async downloadFileWithChunks(url: string, chunkSize = environment.CHUNK_SIZE) {
     const fileSize = await this.getFileSize(url);
-    const chunks = this.splitFileWithChunks(fileSize, chunkSize);
+    const chunks = this.splitFileIntoChunks(fileSize, chunkSize);
     return this.getFileParts(url, chunks);
   }
 
@@ -80,7 +80,7 @@ export class DownloadService {
     return parseInt(contentRange.split('/')[1], 10);
   }
 
-  private splitFileWithChunks(fileSize: number, chunkSize: number): Chunk[] {
+  private splitFileIntoChunks(fileSize: number, chunkSize: number): Chunk[] {
     const chunks: Chunk[] = [];
     let chunkIndex = 0;
     for (let start = 0; start < fileSize; start += chunkSize + 1) {
