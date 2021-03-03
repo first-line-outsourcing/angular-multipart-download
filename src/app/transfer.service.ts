@@ -11,7 +11,7 @@ export class TransferService {
   }
 
   async transferFile(url: string, chunkSize = environment.CHUNK_SIZE) {
-    const chunks = await this.downloadService.bufferFileByURLWithChunks(url, chunkSize);
+    const chunks = await this.downloadService.downloadFileWithChunks(url, chunkSize);
     await this.uploadService.startMultipartUpload(url, chunkSize);
     await this.transferChunks(chunks);
     await this.uploadService.finishMultipartUpload();

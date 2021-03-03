@@ -19,7 +19,7 @@ export class DownloadService {
    * and return 'Content-Range' header in ExposedHeaders.
    * For doing the same on the backend, CORS isn't required
    */
-  async bufferFileByURLWithChunks(url: string, chunkSize = environment.CHUNK_SIZE) {
+  async downloadFileWithChunks(url: string, chunkSize = environment.CHUNK_SIZE) {
     const fileSize = await this.getFileSize(url);
     const chunks = this.splitFileWithChunks(fileSize, chunkSize);
     return this.getFileParts(url, chunks);
